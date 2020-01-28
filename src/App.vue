@@ -114,12 +114,6 @@ export default {
 
           bin.arg.forEach(function(em, id){
             if (em.priority !=  bin.value.priority) {
-              if (em.priority == 77) {
-                console.log(Math.abs(em.left - bin.value.left) - parseInt(el.style.width) / 2)
-                console.log(Math.abs(em.top - bin.value.top) - parseInt(el.style.height) / 2)
-                console.log(!em.hasParent)
-                console.log(!em.isParent)
-              }
               if (
                 (Math.abs(em.left - bin.value.left) - parseInt(el.style.width) / 2) <= 120
                 && (Math.abs(em.top - bin.value.top) - parseInt(el.style.height) / 2) <= 75
