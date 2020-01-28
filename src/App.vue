@@ -135,7 +135,7 @@ export default {
                   em.color = "green"
                 } else {
                   em.color = "red"
-                  em.isParent = true
+                  em.block = true
                 }
               }
             }
