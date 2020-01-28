@@ -17,7 +17,8 @@
           height: item.height + 'px',
           left: item.left + 'px',
           top: item.top + 'px',
-          background: item.color
+          background: item.color,
+          zIndex: [ item.hasParent ? 2 : 0 ]
         }"
       />
     </div>
@@ -44,7 +45,7 @@ export default {
       {
         priority: 32,
         left: 500,
-        top: 222,
+        top: 300,
         block: false
       },
       {
@@ -89,6 +90,7 @@ export default {
           if (isMove) {
             coordX = e.pageX - shiftX
             coordY = e.pageY - shiftY
+            
             el.style.left = coordX + 'px'
             el.style.top = coordY + 'px'
           }
@@ -98,14 +100,8 @@ export default {
           isMove = false
           bin.value.left = coordX
           bin.value.top = coordY
+          el.style.zIndex = 0
 
-
-            /* eslint-disable no-console */
-            // console.log(Math.abs(bin.arg[2].left - bin.value.left) - 120)
-            // console.log(Math.abs(bin.arg[1].top - bin.value.top) - 75)
-            // console.log(em.left)
-            /* eslint-disable no-console */
-            
           bin.value.width = 240
           bin.value.height = 150
 
@@ -118,6 +114,12 @@ export default {
 
           bin.arg.forEach(function(em, id){
             if (em.priority !=  bin.value.priority) {
+              if (em.priority == 77) {
+                console.log(Math.abs(em.left - bin.value.left) - parseInt(el.style.width) / 2)
+                console.log(Math.abs(em.top - bin.value.top) - parseInt(el.style.height) / 2)
+                console.log(!em.hasParent)
+                console.log(!em.isParent)
+              }
               if (
                 (Math.abs(em.left - bin.value.left) - parseInt(el.style.width) / 2) <= 120
                 && (Math.abs(em.top - bin.value.top) - parseInt(el.style.height) / 2) <= 75
