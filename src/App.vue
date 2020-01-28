@@ -7,7 +7,29 @@
     </div>
     <div class="wrapper wrapper-main">
       <my-button
-        :priority="1"
+        :priority="25"
+        :left="0"
+        :top="100"
+      />
+      <my-button
+        :priority="28"
+        :left="100"
+        :top="300"
+      />
+      <my-button
+        :priority="32"
+        :left="500"
+        :top="222"
+      />
+      <my-button
+        :priority="48"
+        :left="300"
+        :top="500"
+      />
+      <my-button
+        :priority="77"
+        :left="400"
+        :top="50"
       />
     </div>
   </div>

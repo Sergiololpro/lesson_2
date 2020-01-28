@@ -3,6 +3,8 @@
     v-text="priority"
     v-drag
     class="myButton"
+    :class="{ 'active': isMove }"
+    :style="{ left: left + 'px', top: top + 'px' }"
   />
 </template>
 
@@ -10,10 +12,20 @@
 export default {
   name: 'myButton',
   data: () => ({
-    isMove: true
+    isMove: false
   }),
   props: {
     priority: {
+      type: Number,
+      required: false,
+      default: () => false
+    },
+    left: {
+      type: Number,
+      required: false,
+      default: () => false
+    },
+    top: {
       type: Number,
       required: false,
       default: () => false
@@ -22,41 +34,36 @@ export default {
 
   directives: {
     drag: {
-      bind: (el, bin) => {
-        bin
+      bind: (el) => {
         let isMove = false,
-            objectX,
-            objectY
-            
-            // shiftY
+            shiftX,
+            shiftY
 
         el.addEventListener('mousedown', (e) => {
           isMove = true
-          objectX = e.pageX
-          objectY = e.pageY
+          shiftX = e.pageX - el.offsetLeft
+          shiftY = e.pageY - el.offsetTop
+          el.style.zIndex = 1
           /* eslint-disable no-console */
-          console.log(isMove)
+          console.log(el.offsetLeft)
           /* eslint-disable no-console */
         })
 
         window.addEventListener('mousemove', (e) => {
           if (isMove) {
-            /* eslint-disable no-console */
-            console.log(el.style.left)
-            el.style.left = objectX - e.clientX + "px"
-            el.style.top = objectY - e.clientY + "px"
-            /* eslint-disable no-console */
+            el.style.left = e.pageX - shiftX + 'px'
+            el.style.top = e.pageY - shiftY + 'px'
           }
         })
 
         el.addEventListener('mouseup', () => {
           isMove = false
-          /* eslint-disable no-console */
-          console.log(isMove)
-          console.log(objectX)
-          console.log(objectY)
-          /* eslint-disable no-console */
+          el.style.zIndex = 0
         })
+      },
+
+      inserted: (el) => {
+        console.log(el.parentNode)
       }
     }
   }
@@ -65,11 +72,16 @@ export default {
 
 <style lang="sass">
 .myButton
-  width: 200px
-  height: 44px
-  background: #77a44b
+  width: 300px
+  height: 150px
+  background: #fff
+  border: 2px solid #16211E
   font-size: 14px
-  color: #fff
-  position: relative
-  margin: 20px 0 0
+  position: absolute
+  &.active
+    z-index: 1
+  &.green
+    background: #68bc48
+  &.red
+    background: #ed2025
 </style>
