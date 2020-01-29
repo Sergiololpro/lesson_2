@@ -146,8 +146,6 @@ export default {
                 && !Number.isInteger(bin.value.block)
                 && !Number.isInteger(bin.value.childId)
               ) {
-                console.log(em)
-                console.log(!em.childId)
                 bin.value.left = em.left
                 bin.value.top = em.top
                 bin.value.width = 120
